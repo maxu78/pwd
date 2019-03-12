@@ -1,0 +1,164 @@
+<!DOCTYPE mapper
+        PUBLIC "-//resources.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fiberhome.pwd.dao.UserDao">
+
+    <select id="getAllUser" resultType="com.fiberhome.pwd.pojo.User">
+        SELECT * FROM TBL_USER
+    </select>
+
+    <!--<select id="getUserById" resultType="com.fiberhome.pwd.pojo.User">
+        SELECT * FROM TBL_USER WHERE id = #{id}
+    </select>-->
+
+    <select id="getUserById" resultType="com.fiberhome.pwd.pojo.User">
+        SELECT * FROM TBL_USER
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUser" parameterType="com.fiberhome.pwd.pojo.User" resultType="com.fiberhome.pwd.pojo.User">
+        SELECT * FROM TBL_USER
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="descr != null and descr != ''">
+                AND descr = #{descr}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                AND remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                AND remark2 = #{remark2}
+            </if>
+            <if test="remark3 != null and remark3 != ''">
+                AND remark3 = #{remark3}
+            </if>
+            <if test="remark4 != null and remark4 != ''">
+                AND remark4 = #{remark4}
+            </if>
+            <if test="remark5 != null and remark5 != ''">
+                AND remark5 = #{remark5}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUserByMap" resultType="com.fiberhome.pwd.pojo.User">
+        SELECT * FROM TBL_USER
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="descr != null and descr != ''">
+                AND descr = #{descr}
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                AND remark1 = #{remark1}
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                AND remark2 = #{remark2}
+            </if>
+            <if test="remark3 != null and remark3 != ''">
+                AND remark3 = #{remark3}
+            </if>
+            <if test="remark4 != null and remark4 != ''">
+                AND remark4 = #{remark4}
+            </if>
+            <if test="remark5 != null and remark5 != ''">
+                AND remark5 = #{remark5}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addUser" parameterType="com.fiberhome.pwd.pojo.User">
+        INSERT INTO TBL_USER (id, name, password, descr, remark1, remark2, remark3, remark4, remark5) VALUES (#{id}, #{name}, #{password}, #{descr}, #{remark1}, #{remark2}, #{remark3}, #{remark4}, #{remark5})
+    </insert>
+
+    <update id="updateUser" parameterType="com.fiberhome.pwd.pojo.User">
+        update TBL_USER
+        <set>
+            <if test="id != null and id != ''">
+                id = #{id},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="descr != null and descr != ''">
+                descr = #{descr},
+            </if>
+            <if test="remark1 != null and remark1 != ''">
+                remark1 = #{remark1},
+            </if>
+            <if test="remark2 != null and remark2 != ''">
+                remark2 = #{remark2},
+            </if>
+            <if test="remark3 != null and remark3 != ''">
+                remark3 = #{remark3},
+            </if>
+            <if test="remark4 != null and remark4 != ''">
+                remark4 = #{remark4},
+            </if>
+            <if test="remark5 != null and remark5 != ''">
+                remark5 = #{remark5},
+            </if>
+        </set>
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM TBL_USER WHERE id = #{id}
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM tbl_user WHERE id IN
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="batchInsert" parameterType="com.fiberhome.pwd.pojo.User">
+        INSERT INTO TBL_USER (id, name, password, descr, remark1, remark2, remark3, remark4, remark5)
+        SELECT * FROM (
+        <foreach collection="list" item="item" separator="UNION ALL">
+            SELECT
+            #{item.id} id,
+            #{item.name} name,
+            #{item.password} password,
+            #{item.descr} descr,
+            #{item.remark1} remark1,
+            #{item.remark2} remark2,
+            #{item.remark3} remark3,
+            #{item.remark4} remark4,
+            #{item.remark5} remark5
+            FROM DUAL
+        </foreach>
+        )
+    </insert>
+</mapper>

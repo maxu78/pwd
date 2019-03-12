@@ -1,0 +1,63 @@
+# 端口配置
+server:
+  port: 7001
+  servlet:
+    context-path: /PWD
+
+# spring配置
+spring:
+  application:
+    name: PWD
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClass: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/springbootdb
+      username: root
+      password: root
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 20
+      timeBetweenEvictionRunsMillis: 20000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,log4j
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
+# mybatis配置
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+# aop日志配置
+log:
+  enabled: false
+
+# jwt设置
+jwt:
+#  header: Authorization
+  filter: true
+  header: token
+  secret: 123456
+  # 令牌过期时间
+  expiration: 3600
+#  token-head: Bearer
+  token-head:
+  route:
+    authentication:
+      path: /login
+      refresh: /refresh
+      register: /register
